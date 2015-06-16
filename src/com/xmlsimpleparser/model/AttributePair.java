@@ -5,11 +5,10 @@ public class AttributePair
 	private String key;
 	private String value;
 	
-	public AttributePair(String line)
+	public AttributePair(String keyParam,String valueParam)
 	{
-		String[] spilitedLine = line.split("=");
-		this.key = spilitedLine[0];
-		this.value = spilitedLine[1];
+		this.key = keyParam;
+		this.value = valueParam;
 	}
 
 	public String getKey()
