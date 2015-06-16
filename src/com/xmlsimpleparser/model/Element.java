@@ -59,4 +59,13 @@ public class Element
 		attributes.put(attributeName, attributeValue);
 	}
 	
+	@Override
+	public String toString()
+	{
+		StringBuilder description = new StringBuilder();
+		description.append(markerName+" "+attributes+" text:"+textContent);
+		
+		return description.toString();
+	}
+	
 }

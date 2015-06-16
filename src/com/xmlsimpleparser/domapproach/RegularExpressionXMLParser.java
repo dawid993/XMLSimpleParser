@@ -38,7 +38,7 @@ public class RegularExpressionXMLParser
 			Element newElement = createNewElement(markerName, textInMarker, father, attributePairs);
 			father.addChildren(newElement);
 			
-			if(textInMarker.equals(""))
+			if(textInMarker.equals("") && matcher.group(4) != null)
 				parseFile(matcher.group(4), newElement);
 		}
 	}
@@ -50,7 +50,7 @@ public class RegularExpressionXMLParser
 	
 	private Pattern getCompiledPatern()
 	{
-		String pattern = "<(\\w+)((\\s+\\S+=\"[^\"]+\")*)>([\\w\\W]+?)(</\\1>+)";
+		String pattern = "<(\\w+)((\\s+\\S+=\"[^\"]+\")*)>([\\w\\W]*?)(</\\1>+)";
 		return Pattern.compile(pattern);
 	}	
 

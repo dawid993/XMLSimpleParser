@@ -21,10 +21,28 @@ public class DOMApproachXMLParsing
 	
 	public void parseDocument()
 	{
-		//Element root = new Element();
+		Element root = new Element("",null,"root");
+		RegularExpressionXMLParser parser = new RegularExpressionXMLParser(fileToParse);
+		parser.parseFile(parser.getXmlFileContent(), root);
 		
-		
-		
+		rootOfXMLTree = root;
+	}
+	
+	public Element getRoot()
+	{
+		return rootOfXMLTree;
+	}
+	
+	public void showTreeStructure()
+	{
+		showTree(rootOfXMLTree, "*");
+	}
+	
+	private static void showTree(Element root,String prefix)
+	{
+		System.out.println(prefix+root);
+		for(Element e:root.getChildrens())		
+			showTree(e, prefix+"  *");		
 	}
 	
 }
