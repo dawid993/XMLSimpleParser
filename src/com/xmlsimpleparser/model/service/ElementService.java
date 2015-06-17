@@ -31,8 +31,7 @@ public class ElementService
 	
 	public static void addBrotherToElement(Element element,Element brotherParam)
 	{
-		Element rightBrother = element;
-		
+		Element rightBrother = element;		
 		while(rightBrother.getRightSideBrother() != null)
 			rightBrother = rightBrother.getRightSideBrother();
 		
