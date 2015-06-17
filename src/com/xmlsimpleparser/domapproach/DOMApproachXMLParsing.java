@@ -21,7 +21,7 @@ public class DOMApproachXMLParsing
 	
 	public void parseDocument()
 	{
-		Element root = new Element("",null,"root");
+		Element root = new Element("root","begin",null);
 		RegularExpressionXMLParser parser = new RegularExpressionXMLParser(fileToParse);
 		parser.parseFile(parser.getXmlFileContent(), root);
 		
@@ -39,10 +39,17 @@ public class DOMApproachXMLParsing
 	}
 	
 	private static void showTree(Element root,String prefix)
-	{
-		System.out.println(prefix+root);
-		for(Element e:root.getChildrens())		
-			showTree(e, prefix+"  *");		
+	{		
+		Element elem = root;		
+		while(elem != null)
+		{
+			System.out.println(prefix+" "+elem);
+			if(elem.getLeftSideSon() != null)		
+				showTree(elem.getLeftSideSon(),prefix+"  *");
+					
+			elem=elem.getRightSideBrother();	
+			
+		}
 	}
 	
 }

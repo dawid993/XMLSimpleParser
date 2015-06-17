@@ -1,25 +1,27 @@
 package com.xmlsimpleparser.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Element 
 {
 	private String textContent;
 	private Map<String,String> attributes;
-	private List<Element> childrens;
-	private Element father;
 	private String markerName;
 	
-	public Element(String textContentParam,Element fatherParam, String markerNameParam)
+	private Element father;
+	private Element leftSideSon;
+	private Element rightSideBrother;
+	
+	
+	public Element(String markerNameParam,String textContentParam,Element fatherParam)
 	{
-		this.textContent = textContentParam;
-		this.father = fatherParam;
+		this.textContent = textContentParam;		
 		this.markerName = markerNameParam;			
-		attributes = new HashMap<String,String>();		
-		childrens = new ArrayList<Element>();		
+		this.attributes = null;		
+				
+		this.father = fatherParam;
+		this.leftSideSon = null;
+		this.rightSideBrother = null;		
 	}
 	
 	public String getTextContent() 
@@ -27,36 +29,49 @@ public class Element
 		return textContent;
 	}
 	
-	
-	public Map<String, String> getAtributes()
+	public Map<String, String> getAttributes()
 	{
 		return attributes;
 	}
 	
-	public List<Element> getChildrens() 
+	public void setAttributes(Map<String,String> attributesParam)
 	{
-		return childrens;
-	}
-		
+		this.attributes = attributesParam;
+	}	
+	
 	public String getMarkerName() 
 	{
 		return markerName;
-	}	
-	
+	}		
 	
 	public Element getFather()
 	{
 		return father;
+	}	
+	
+	public void setFather(Element fatherParam)
+	{
+		this.father = fatherParam;
 	}
 	
-	public void addChildren(Element elementParam)
-	{		
-		childrens.add(elementParam);
+	public Element getLeftSideSon() 
+	{
+		return leftSideSon;
 	}
-	
-	public void addAttribute(String attributeName,String attributeValue)
-	{		
-		attributes.put(attributeName, attributeValue);
+
+	public void setLeftSideSon(Element leftSideSonParam)
+	{
+		this.leftSideSon = leftSideSonParam;
+	}
+
+	public Element getRightSideBrother() 
+	{
+		return rightSideBrother;
+	}
+
+	public void setRightSideBrother(Element rightSideBrotherParam)
+	{
+		this.rightSideBrother = rightSideBrotherParam;
 	}
 	
 	@Override
@@ -66,6 +81,5 @@ public class Element
 		description.append(markerName+" "+attributes+" text:"+textContent);
 		
 		return description.toString();
-	}
-	
+	}	
 }

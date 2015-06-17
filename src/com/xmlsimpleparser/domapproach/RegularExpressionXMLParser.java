@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import com.xmlsimpleparser.model.AttributePair;
 import com.xmlsimpleparser.model.Element;
+import com.xmlsimpleparser.model.service.ElementService;
 
 public class RegularExpressionXMLParser
 {	
@@ -35,8 +36,8 @@ public class RegularExpressionXMLParser
 				textInMarker = "";
 			
 			List<AttributePair> attributePairs = splitAtributes(attributeParameters);
-			Element newElement = createNewElement(markerName, textInMarker, father, attributePairs);
-			father.addChildren(newElement);
+			Element newElement = ElementService.createElement(markerName, textInMarker, father, attributePairs);
+			ElementService.addChild(father, newElement);
 			
 			if(textInMarker.equals("") && matcher.group(4) != null)
 				parseFile(matcher.group(4), newElement);
@@ -66,16 +67,7 @@ public class RegularExpressionXMLParser
 		return splitedLinesWithAttributes;		
 	}
 	
-	private Element createNewElement(String markerName,String markerContent,Element father,List<AttributePair> attributes)
-	{
-		Element element = new Element(markerContent.trim(), father, markerName);
-		
-		for(AttributePair pair:attributes)
-			element.getAtributes().put(pair.getKey(), pair.getValue());
-		
-		return element;
-	}
-		
+	
 	private String getFileContent(File fileToParse)
 	{
 		Scanner in = null;
