@@ -65,13 +65,11 @@ public class RegularExpressionXMLParser
 			splitedLinesWithAttributes.add(new AttributePair(matcher.group(1), matcher.group(2)));
 		
 		return splitedLinesWithAttributes;		
-	}
-	
+	}	
 	
 	private String getFileContent(File fileToParse)
 	{
-		Scanner in = null;
-		
+		Scanner in = null;		
 		try 
 		{
 			in = new Scanner(fileToParse);

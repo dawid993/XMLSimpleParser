@@ -45,10 +45,8 @@ public class DOMApproachXMLParsing
 		{
 			System.out.println(prefix+" "+elem);
 			if(elem.getLeftSideSon() != null)		
-				showTree(elem.getLeftSideSon(),prefix+"  *");
-					
-			elem=elem.getRightSideBrother();	
-			
+				showTree(elem.getLeftSideSon(),prefix+"  *");					
+			elem=elem.getRightSideBrother();				
 		}
 	}
 	
