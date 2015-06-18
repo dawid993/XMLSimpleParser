@@ -29,18 +29,18 @@ public class RegularExpressionXMLParser
 		while(matcher.find())
 		{
 			String markerName = matcher.group(1);
-			String attributeParameters = matcher.group(2).trim();
-			String textInMarker = matcher.group(4);			
 			
-			if(compiledPattern.matcher(textInMarker).find())
-				textInMarker = "";
-			
-			List<AttributePair> attributePairs = splitAtributes(attributeParameters);
-			Element newElement = ElementService.createElement(markerName, textInMarker, father, attributePairs);
-			ElementService.addChild(father, newElement);
-			
-			if(textInMarker.equals("") && matcher.group(4) != null)
-				parseFile(matcher.group(4), newElement);
+			if(matcher.group(6)!= null)
+			{				
+				String textInMarker = matcher.group(7);		
+				if(compiledPattern.matcher(textInMarker).find())
+					textInMarker = "";
+				Element newElement = createElement(matcher, markerName, textInMarker, father);
+				if(textInMarker.equals("") && matcher.group(7) != null)
+					parseFile(matcher.group(7), newElement);
+			}
+			else					
+				createElement(matcher, markerName, "", father);					
 		}
 	}
 	
@@ -51,9 +51,19 @@ public class RegularExpressionXMLParser
 	
 	private Pattern getCompiledPatern()
 	{
-		String pattern = "<(\\w+)((\\s+\\S+=\"[^\"]+\")*)>([\\w\\W]*?)(</\\1>+)";
+		String pattern = "<(\\w+)((\\s+\\S+=\"[^\"]+\")*)((\\s*/>)|(>([\\w\\W]*?)(</\\1>+)))";				
 		return Pattern.compile(pattern);
 	}	
+	
+	private Element createElement(Matcher matcher,String markerName,String markerTextContent,Element father)
+	{
+		String attributeParameters = matcher.group(2).trim();		
+		List<AttributePair> attributePairs = splitAtributes(attributeParameters);
+		Element newElement = ElementService.createElement(markerName,markerTextContent, father, attributePairs);
+		ElementService.addChild(father, newElement);
+		
+		return newElement;
+	}
 
 	private List<AttributePair> splitAtributes(String line)
 	{
